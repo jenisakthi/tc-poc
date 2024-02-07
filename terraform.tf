@@ -6,6 +6,12 @@ terraform {
     workspaces {
       name = "Poc-project-workspace"
     }
+    required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
   }
 }
 
