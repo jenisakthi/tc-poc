@@ -7,25 +7,14 @@ module "eks" {
 
   cluster_endpoint_public_access  = true
 
-  cluster_addons = {
-    coredns = {
-      most_recent = true
-    }
-    kube-proxy = {
-      most_recent = true
-    }
-    vpc-cni = {
-      most_recent = true
-    }
-  }
-
+  
   vpc_id                   = module.vpc.vpc_id
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.public_subnets
 
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
-    instance_types = ["m6i.large", "m5.large", "m5n.large", "t3.large"]
+     ami_type = "AL2_x86_64"
   }
 
   eks_managed_node_groups = {
@@ -40,22 +29,6 @@ module "eks" {
       capacity_type  = "SPOT"
     }
   }
-
-  # Fargate Profile(s)
-  fargate_profiles = {
-    default = {
-      name = "default"
-      selectors = [
-        {
-          namespace = "default"
-        }
-      ]
-    }
-  }
-
-  # aws-auth configmap
-  manage_aws_auth_configmap = false
-
   
 
   tags = {
