@@ -17,6 +17,14 @@ resource "aws_security_group" "terraformcloud" {
   }
 }
 
+data "aws_ami" "ubuntu-linux-1804" {
+  most_recent = true
+  owners      = ["562041613760"]  # Canonical owner ID
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+  }
+}
 
 
 resource "aws_instance" "terraformcloud" {
