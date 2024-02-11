@@ -17,25 +17,10 @@ resource "aws_security_group" "terraformcloud" {
   }
 }
 
-data "aws_ami" "ubuntu" {
-    most_recent = true
-
-    filter {
-        name   = "name"
-        values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-20.08-amd64-server-*"]
-    }
-    
-    filter {
-        name = "virtualization - type"
-        values = ["hvm"]
-    }
-
-    owners = ["AWS"]
-}
 
 
 resource "aws_instance" "terraformcloud" {
-  ami           = "${data.aws_ami.ubuntu.id}"
+  ami           = data.aws_ami.ubuntu-linux-1804.id
   instance_type = "t2.medium"
   key_name      = "terraformcloudpoc"
 
