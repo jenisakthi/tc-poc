@@ -17,8 +17,18 @@ resource "aws_security_group" "terraformcloud" {
   }
 }
 
-aws ec2 create-key-pair --key-name terraformcloud --query 'KeyMaterial' --output text > ~/.ssh/terraformcloud.pem
-chmod 400  ~/.ssh/terraformcloud.pem
+  resource "aws_key_pair" "terraformcloud" {
+  key_name = "terraformcloud"
+  public_key = tls_private_key.rsa.public_key_openssh
+  }
+  resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+  }
+  resource "local_file" "terraformcloud" {
+  content  = tls_private_key.rsa.private_key_pem
+  filename = "terraformcloud"
+  }
 
 resource "aws_instance" "terraformcloud" {
   ami           = "ami-0533f2ba8a1995cf9"
