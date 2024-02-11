@@ -16,6 +16,7 @@ resource "aws_security_group" "terraformcloud" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
 data "aws_ami" "ubuntu" {
     most_recent = true
 
@@ -23,16 +24,15 @@ data "aws_ami" "ubuntu" {
         name   = "name"
         values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-20.08-amd64-server-*"]
     }
-
+    
     filter {
-        name   = "virtualization-type"
+        name = "virtualization - type"
         values = ["hvm"]
     }
 
-    owners = ["099720109477"] # Canonical
+    owners = ["AWS"]
 }
 
-  
 
 resource "aws_instance" "terraformcloud" {
   ami           = "${data.aws_ami.ubuntu.id}"
