@@ -35,7 +35,7 @@ resource "aws_instance" "terraformcloud" {
   instance_type = "t2.medium"
   key_name      = "terraformcloud"
 
-  subnet_id                   = module.vpc.public_subnets
+  subnet_ids                   = module.vpc.public_subnets
   vpc_security_group_ids      = [aws_security_group.terraformcloud.id]
   associate_public_ip_address = true
 
