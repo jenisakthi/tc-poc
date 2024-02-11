@@ -17,23 +17,12 @@ resource "aws_security_group" "terraformcloud" {
   }
 }
 
-  resource "aws_key_pair" "terraformcloud" {
-  key_name = "terraformcloud"
-  public_key = tls_private_key.rsa.public_key_openssh
-  }
-  resource "tls_private_key" "rsa" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-  }
-  resource "local_file" "terraformcloud" {
-  content  = tls_private_key.rsa.private_key_pem
-  filename = "terraformcloud"
-  }
+  
 
 resource "aws_instance" "terraformcloud" {
   ami           = "ami-0533f2ba8a1995cf9"
   instance_type = "t2.medium"
-  key_name      = "terraformcloud"
+  key_name      = "terraformcloudpoc"
 
   subnet_id                   = module.vpc.public_subnets[0]
   vpc_security_group_ids      = [aws_security_group.terraformcloud.id]
