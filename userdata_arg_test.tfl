@@ -16,7 +16,7 @@ sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 rm argocd-linux-amd64
 
 #istio installation 
-curl -L https://istio.io/downloadIstio | sh -	
+curl -L "https://istio.io/downloadIstio | sh -"
 cd istio-1.20.3/
 export PATH="$PATH:/root/istio-1.20.3/bin"
 istioctl install --set profile=demo -y
