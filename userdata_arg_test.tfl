@@ -1,15 +1,22 @@
 #!/bin/bash
 
+#kubectl installation
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-
+#aws configure
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 sudo apt install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install
 
+#argocd cli installation
 curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
 sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 rm argocd-linux-amd64
 
+#istio installation 
+curl -L https://istio.io/downloadIstio | sh -	
+cd istio-1.20.3/
+export PATH="$PATH:/root/istio-1.20.3/bin"
+istioctl install --set profile=demo -y
