@@ -18,7 +18,4 @@ rm argocd-linux-amd64
 #istio installation 
 curl -L "https://istio.io/downloadIstio" -o "install_istio.sh"
 sh install_istio.sh
-ISTIO_VERSION="$(curl -sL https://github.com/istio/istio/releases | \
-                  grep -o 'releases/[0-9]*.[0-9]*.[0-9]*/' | sort -V | \
-                  tail -1 | awk -F'/' '{ print $2}')"
-mv "istio-${ISTIO_VERSION}/bin/istioctl" /usr/bin/
+mv "istio-$(curl -sL https://github.com/istio/istio/releases | grep -o 'releases/[0-9]*.[0-9]*.[0-9]*/' | sort -V | tail -1 | awk -F'/' '{ print $2}')/bin/istioctl" /usr/bin/
