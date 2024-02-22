@@ -4,7 +4,7 @@ terraform {
     organization = "Pocdemo"
 
     workspaces {
-      name = "tc-poc-demo"
+      name = "demo-tc-poc"
     }
     required_providers {
     aws = {
